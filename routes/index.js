@@ -21,4 +21,12 @@ router.get('/', (req, res, next) => {
   // });
 });
 
+router.get('/top-products', (req, res, next) => {
+ res.render('top-products');
+});
+
+router.get('/producers', (req, res, next) => {
+  res.render('producers');
+});
+
 module.exports = router;

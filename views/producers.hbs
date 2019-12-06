@@ -1,0 +1,77 @@
+<div id="local-producers">
+  <div class="div-map map-welcome-page" id="map"></div>
+</div>  
+
+{{!-- <ul>
+  {{#each allTeachers}}
+  <li>
+  <a href="/allTeachers/{{this._id}}">{{this.name}}</a>
+  </li>
+  <li>
+    {{location.coordinates.[0]}}
+    {{location.coordinates.[1]}}
+  </li>
+  {{/each}}
+</ul> --}}
+
+
+<script>
+  const teachers = [
+    {{#each allTeachers}}
+      {{#if this.location.coordinates.[1]}}
+        {
+          id: "{{this._id}}",
+          name: "{{this.name}}",
+          photo: "{{this.photo}}",
+          location: {
+            lat: {{this.location.coordinates.[1]}},
+            lng: {{this.location.coordinates.[0]}}
+          }
+        },
+      {{/if}}
+    {{/each}}
+  ];
+
+  function initMap () {
+    const $mapContainer = document.getElementById('map');
+
+    if ($mapContainer) {
+      const map = new window.google.maps.Map($mapContainer, {
+        center: { lat: 38.7233223, lng: -9.0817887
+ },
+        zoom: 10,
+        mapTypeControl: false,
+        streetViewControl: false,
+        fullscreenControl: false
+      });
+
+      let info;
+
+      for (let seller of teachers) {
+        const position = seller.location;
+
+        let marker = new window.google.maps.Marker({
+          position,
+          map
+        });
+
+        marker.addListener('click', function (event) {
+          if (info) {
+            info.close();
+          }
+          info = new window.google.maps.InfoWindow({
+            position
+          });
+          info.setContent(`
+            <div class="seller-info">
+              <img src="${seller.photo}" />
+              <strong>${seller.name}</strong>
+              <a href="/profile/${seller.id}">Visit Profile</a>
+            </div>
+          `);
+          info.open(map, marker);
+        });
+      }
+    }
+  }
+</script>
