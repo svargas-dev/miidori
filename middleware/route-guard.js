@@ -15,7 +15,7 @@ module.exports = (req, res, next) => {
       ) {
         next();
       } else {
-        next(new Error('User has no permission to visit that page.'));
+        next(new Error('Please log in to see the producers page.'));
       }
     })
     .catch(error => {

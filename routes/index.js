@@ -6,15 +6,16 @@ const router = new Router();
 const User = require('./../models/user');
 
 router.get('/', (req, res, next) => {
-  User.find({
-    role: 'seller'
-  }).then(allTeachers => {
-    if (!allTeachers) {
-      return Promise.reject(new Error('There are no teachers.'));
-    } else {
-      res.render('index', { allTeachers });
-    }
-  });
+  // User.find({
+  //   role: 'seller'
+  // }).then(allTeachers => {
+  //   if (!allTeachers) {
+  //     return Promise.reject(new Error('There are no teachers.'));
+  //   } else {
+  //     res.render('index', { allTeachers });
+  //   }
+  // });
+  res.render('index');
 
   // res.render('index', {
   //   title: 'Hello client!'
@@ -26,7 +27,16 @@ router.get('/top-products', (req, res, next) => {
 });
 
 router.get('/producers', (req, res, next) => {
-  res.render('producers');
+  User.find({
+    role: 'seller'
+  }).then(allTeachers => {
+    if (!allTeachers) {
+      return Promise.reject(new Error('There are no teachers.'));
+    } else {
+      res.render('producers', { allTeachers });
+    }
+  });
+  // res.render('producers');
 });
 
 module.exports = router;

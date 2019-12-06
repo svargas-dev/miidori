@@ -1,7 +1,11 @@
-<form action="/authentication/sign-in" method="POST">
-    <label for="input-email">Email</label>
-    <input type="email" id="input-email" name="email" placeholder="Your Email" />
-    <label for="input-password">Password</label>
-    <input type="password" name="password" id="input-password" placeholder="Your Password" />
-    <button>Sign In</button>
-</form>
+<div id="sign-in">
+    <div class="card rounded bg-cream w-25 mx-auto">
+        <form class="p-2" action="/authentication/sign-in" method="POST">
+            <label for="input-email">Email</label>
+            <input type="email" id="input-email" name="email" placeholder="Your Email" />
+            <label for="input-password">Password</label>
+            <input type="password" name="password" id="input-password" placeholder="Your Password" />
+            <button class="btn btn-primary">Sign In</button>
+        </form>
+    </div>
+</div>
