@@ -1,0 +1,27 @@
+$font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$link-color: #00b7ff;
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+#map {
+  width: 80%;
+  height: 45em;
+  text-align: center;
+  margin: auto;
+}
+
+#map2 {
+  width: 50%;
+  height: 35em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}

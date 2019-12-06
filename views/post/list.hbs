@@ -1,0 +1,31 @@
+<br>
+<h2>List Posts</h2>
+<div class="row">
+<div class="col-sm-6">
+<form action="/post/create" method="POST" enctype="multipart/form-data">
+  <textarea name="text" maxlength="140" placeholder="Write your text here..." required></textarea>
+  <input type="file" name="images" multiple/>
+  <button class="btn">Publish</button>
+</form>
+</div>
+
+
+<div class="col-sm-6">
+   {{#each posts}}
+
+<div class="card text-center col-sm-12 mt-4">
+  <div class="card-header">
+  <a>{{ this.author.name }}</a>
+  </div>
+  <div class="card-body">
+  <a href="/post/{{ this._id }}">
+    {{> singlepost}}
+  </a>
+  </div>
+  <div class="card-footer text-muted">
+  <small>{{ this.creationDate }}</small>
+  </div>
+</div>
+{{/each}}
+</div>
+</div>

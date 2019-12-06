@@ -1,0 +1,41 @@
+{{!-- Bootstrap Simão THE BEST --}}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">Miidori</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        {{#if user}}
+          <li class="nav-item active">
+            <a class="nav-link" href="/post/list">What's New</a>
+          </li>
+      
+          <li class="nav-item active">
+            <a class="nav-link" href="/profile/{{user._id}}">{{user.name}}'s Profile</a>
+          </li>
+
+          <li class="nav-item active">
+            <form action="/authentication/sign-out" method="POST">
+              <a class="nav-link" href="/authentication/sign-out">Sign Out</a>
+            </form>
+          {{else}}
+
+          <li class="nav-item active">
+            <a class="nav-link" href="/authentication/sign-in">Sign In</a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link" href="/post/list">What's New</a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="btn btn-primary btn-lg" href="/authentication/sign-up" role="button">Register today</a>
+          </li>
+        {{/if}}
+
+    </ul>
+  </div>
+</nav>

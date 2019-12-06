@@ -1,0 +1,11 @@
+<h1>Edit a Post</h1>
+
+<form action="/post/{{post._id}}/edit" method="POST">
+  <textarea name="text" maxlength="140" placeholder="Insert text">{{ post.text }}</textarea>
+  {{!-- <input name="text" value={{post.text}} /> --}}
+  <button class="btn">Publish</button>
+</form>
+
+<form action="/post/{{post._id}}/delete" method="POST">
+  <button class="btn">Delete</button>
+</form>

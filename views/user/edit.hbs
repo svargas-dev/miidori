@@ -1,0 +1,118 @@
+<h1>{{user.name}} Profile</h1>
+
+<form role="form" action="/profile/{{user.id}}/edit" method="POST"  enctype="multipart/form-data">
+  <div class="form-group">
+    <label class="form-control-label">Name</label>
+    <input name="name" class="form-control" type="text" value="{{user.name}}" placeholder="Name" required>
+  </div>
+
+  <div class="form-group">
+    <label class="form-control-label">Email</label>
+    <input name="email" class="form-control" type="email" value="{{user.email}}" placeholder="Email" required>
+  </div>
+
+  {{#ifEquals user.role "seller"}}
+  <div id="floating-panel">
+    <input id="address" type="textbox" placeholder="City">
+    <button class="btn btn-primary" id="geocode" type="button">Enter</button>
+  </div>
+  <div id="map2"></div>
+  {{/ifEquals}}
+
+  <div class="form-group">
+    <label class="form-control-label">Location</label>
+    <input name="longitude" class="form-control" type="number" placeholder="Longitude" value={{user.longitude}} required readonly>
+    <input name="latitude" class="form-control" type="number" placeholder="Latitude" value={{user.latitude}} required readonly>
+  </div>
+
+  <div class="form-group">
+    <label class="form-control-label">Role</label>
+    <select name="role" class="form-control" name="role">
+      {{#select user.role}}
+      <option value="client">client</option>
+      <option value="seller">seller</option>
+      {{/select}}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <img src="{{user.photo}}" alt="photo" id="TeacherPhoto">
+    <label class="form-control-label">Profile Photo</label>
+    <input type="file" id="file" name="photo">
+  </div>
+
+
+  <div class="form-group">
+    <input type="reset" class="btn btn-secondary" value="Cancel">
+    <input type="submit" class="btn btn-success" value="Save Changes">
+  </div>
+</form>
+
+{{!-- Mapa no perfil do professor!!!!!!!!!! --}}
+
+{{#ifEquals user.role "seller"}}
+
+<script>
+  let map2;
+  let marker;
+
+  function initMap() {
+    map2 = new window.google.maps.Map(document.getElementById('map2'), {
+      zoom: 8,
+      center: {
+        lat: 38.397,
+        lng: -9.644
+      }
+    });
+    let geocoder = new google.maps.Geocoder();
+    document.getElementById('geocode').addEventListener('click', function () {
+      geocodeAddress(geocoder, map2);
+    });
+    {{#if user.latitude}}
+      let position = {
+        lat: {{user.latitude}},
+        lng: {{user.longitude}}
+      };
+      marker = new google.maps.Marker({
+        map: map2,
+        position
+      });
+    {{/if}}
+  }
+
+  const $inputLongitude = document.querySelector('input[name="longitude"]');
+  const $inputLatitude = document.querySelector('input[name="latitude"]');
+
+  function geocodeAddress(geocoder, resultsMap) {
+    let address = document.getElementById('address').value;
+    geocoder.geocode({
+      address
+    }, (results, status) => {
+      const location = results[0].geometry.location;
+      if (status === 'OK') {
+        resultsMap.setCenter(location);
+        let marker = new google.maps.Marker({
+          map: resultsMap,
+          position: results[0].geometry.location
+        });
+
+        const latitude = location.lat();
+        const longitude = location.lng();
+
+        console.log(latitude);
+        console.log(longitude);
+
+        $inputLatitude.value = latitude;
+        $inputLongitude.value = longitude;
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+  }
+</script>
+
+{{/ifEquals}}
+
+{{#ifEquals loggedUser.id user.id}}
+<a href="/profile/{{user.id}}/delete"><button>Delete Your Profile</button></a>  
+{{/ifEquals}}

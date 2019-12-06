@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/styles/style.css">
+       <script>
+        // Comentado para nao aparecer o mapa na home page. Criar nova página para o mapa com lista dos professores
+        // InitMap2 chamado em user.hbs
+
+        function initialize() {
+          initMap();
+        }
+ 
+      </script>
+  </head>
+
+  <body>
+      {{>navbar}}
+
+      <div class="container-fluid" id="mainContainer">
+        {{{body}}}
+      </div>
+
+
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+      <script src="/scripts/script.js"></script>
+   
+      <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmFlg0hUn3AkPBctCd3i0Y8JtScF2tPGQ&callback=initialize"
+        async defer></script>
+  </body>
+
+</html>

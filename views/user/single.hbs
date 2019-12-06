@@ -1,0 +1,91 @@
+
+
+
+{{#each posts}}
+  <a href="/post/{{ this._id }}">
+    {{> singlepost}}
+  </a>
+{{/each}}
+
+{{!-- Função para editar o próprio perfil --}}
+<div class="row">
+  <div class="col-sm-6 text-center profile-image">
+<p>
+  <br>
+    <img class="rounded-circle" src="{{user.photo}}" alt="photo" id="TeacherPhoto">
+    <h1>{{user.name}}</h1>
+
+
+  <h3>{{user.role}}</h3> 
+   {{#ifEquals user.role "seller"}}
+
+   <button type="button" class="btn btn-warning">
+  <a href="mailto:{{user.email}}">Book Classes</a>
+  </button>
+
+  {{/ifEquals}}
+  <br>
+  {{!-- <strong>Name: </strong> {{user.name}} --}}
+  {{!-- <br> --}}
+  {{!-- <strong>Email: </strong> {{user.email}}
+  <br> --}}
+ 
+  {{!-- <strong>Longitude: </strong> {{user.longitude}}
+  <strong>Latitude: </strong> {{user.latitude}} --}}
+</p>
+
+<br>
+<a class="btn btn-primary" href="/post/create">Create Post</a>
+<br>
+{{!-- <a class="btn btn-primary" href="/post/list">See all posts</a> --}}
+{{!-- <br> --}}
+
+{{#ifEquals loggedUser.id user.id}}
+  <a class="btn btn-primary" href="/profile/{{user.id}}/edit">Edit Profile</a>
+{{/ifEquals}}
+
+
+</div>
+
+
+
+
+
+{{!-- Mapa no perfil do professor!!!!!!!!!! --}}
+
+{{#ifEquals user.role "seller"}}
+<div id="map2"></div>
+<div class="col-sm-6">
+<script>
+  let map2;
+  let marker;
+
+  function initMap() {
+    const center = {
+      lat: 38.397,
+      lng: -9.644
+    };
+    map2 = new window.google.maps.Map(document.getElementById('map2'), {
+      zoom: 8,
+      center
+    });
+    {{#if user.latitude}}
+      let position = {
+        lat: {{user.latitude}},
+        lng: {{user.longitude}}
+      };
+      marker = new google.maps.Marker({
+        map: map2,
+        position
+      });
+    {{/if}}
+  }
+</script>
+{{/ifEquals}}
+</div>
+
+
+
+
+
+</div>
